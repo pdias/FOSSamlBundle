@@ -1,0 +1,5 @@
+services:
+    security.authentication.factory.saml:
+        class:  ipcb\FOSSamlBundle\DependencyInjection\Security\Factory\SamlFactory
+        tags:
+            - { name: security.listener.factory }

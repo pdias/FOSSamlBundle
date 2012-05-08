@@ -1,0 +1,24 @@
+parameters:
+    saml.service.user.provider.class: ipcb\FOSSamlBundle\Security\User\SamlUserProvider
+
+services:
+  saml.security.authentication.provider:
+    class: ipcb\FOSSamlBundle\Security\Authentication\Provider\SamlProvider
+    arguments: ['', %kernel.cache_dir%/security/nonces]
+    
+  saml.security.authentication.listener:
+    class: ipcb\FOSSamlBundle\Security\Firewall\SamlListener
+    arguments: [@security.context, @security.authentication.manager]
+
+  #saml.security.logout_listener:
+  #  class: ipcb\FOSSamlBundle\Security\Firewall\SamlLogoutListener
+  #  arguments: [@security.context, @security.http_utils,'','',@security.logout.success_handler]
+
+  #saml.logout.handler:
+  #  class: ipcb\FOSSamlBundle\Security\Logout\SamlLogoutHandler
+  #  arguments: [@router, @security.context]
+  #  tags:
+  #    - { name: 'monolog.logger' channel: 'security' }
+
+  saml.service.user.provider:
+    class: %saml.service.user.provider.class%
